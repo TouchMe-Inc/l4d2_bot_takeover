@@ -2,4 +2,4 @@
 Allows the player to control the bot after death.
 
 ## Support
-Left4dDHooks
+Left4DHooks
