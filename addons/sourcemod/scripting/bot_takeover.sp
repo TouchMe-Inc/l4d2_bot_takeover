@@ -80,7 +80,7 @@ public void OnPluginStart()
 	HookEvent("player_death", Event_PlayerDeath, EventHookMode_Post);
 
 	// Player Commands.
-	RegConsoleCmd("sm_taleover", Cmd_TakeOver);
+	RegConsoleCmd("sm_takeover", Cmd_TakeOver);
 }
 
 /**
@@ -103,8 +103,7 @@ Action Event_PlayerDeath(Event event, const char[] name, bool bDontBroadcast)
 
 Action Timer_TakeOver(Handle hTimer, int iClient)
 {
-	if (!IsValidClient(iClient)
-	|| !IsClientInGame(iClient)
+	if (!IsClientInGame(iClient)
 	|| IsFakeClient(iClient)
 	|| !IsClientSurvivor(iClient)) {
 		return Plugin_Continue;
