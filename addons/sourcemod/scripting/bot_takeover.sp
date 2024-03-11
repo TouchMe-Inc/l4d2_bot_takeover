@@ -2,6 +2,8 @@
 #pragma semicolon               1
 #pragma newdecls                required
 
+#include <sourcemod>
+
 #undef REQUIRE_PLUGIN
 #include <left4dhooks>
 #define REQUIRE_PLUGIN
@@ -11,7 +13,8 @@ public Plugin myinfo = {
 	name = "BotTakeOver",
 	author = "TouchMe",
 	description = "Allows the player to control the bot after death",
-	version = "build_0001"
+	version = "build_0001",
+	url = "https://github.com/TouchMe-Inc/l4d2_bot_takeover"
 };
 
 
@@ -88,7 +91,7 @@ public void OnPluginStart()
  */
 Action Event_PlayerDeath(Event event, const char[] name, bool bDontBroadcast)
 {
-	int iVictim = GetClientOfUserId(event.GetInt("userid"));
+	int iVictim = GetClientOfUserId(GetEventInt(event, "userid"));
 
 	if (!IsValidClient(iVictim)
 	|| IsFakeClient(iVictim)
@@ -96,7 +99,7 @@ Action Event_PlayerDeath(Event event, const char[] name, bool bDontBroadcast)
 		return Plugin_Continue;
 	}
 
-	CreateTimer(0.1, Timer_TakeOver, iVictim);
+	CreateTimer(3.0, Timer_TakeOver, iVictim);
 
 	return Plugin_Continue;
 }
