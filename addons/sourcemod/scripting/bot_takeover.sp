@@ -10,11 +10,11 @@
 
 
 public Plugin myinfo = {
-	name = "BotTakeOver",
-	author = "TouchMe",
+	name        = "BotTakeOver",
+	author      = "TouchMe",
 	description = "Allows the player to control the bot after death",
-	version = "build_0001",
-	url = "https://github.com/TouchMe-Inc/l4d2_bot_takeover"
+	version     = "build_0001",
+	url         = "https://github.com/TouchMe-Inc/l4d2_bot_takeover"
 };
 
 
@@ -66,9 +66,7 @@ public void OnLibraryAdded(const char[] sName)
   */
 public APLRes AskPluginLoad2(Handle myself, bool late, char[] error, int err_max)
 {
-	EngineVersion engine = GetEngineVersion();
-
-	if (engine != Engine_Left4Dead2)
+	if (GetEngineVersion() != Engine_Left4Dead2)
 	{
 		strcopy(error, err_max, "Plugin only supports Left 4 Dead 2.");
 		return APLRes_SilentFailure;
@@ -87,15 +85,13 @@ public void OnPluginStart()
 }
 
 /**
- * Registers murder.
+ * Player death starts the timer for takeover.
  */
 Action Event_PlayerDeath(Event event, const char[] name, bool bDontBroadcast)
 {
 	int iVictim = GetClientOfUserId(GetEventInt(event, "userid"));
 
-	if (!IsValidClient(iVictim)
-	|| IsFakeClient(iVictim)
-	|| !IsClientSurvivor(iVictim)) {
+	if (!iVictim || IsFakeClient(iVictim) || !IsClientSurvivor(iVictim)) {
 		return Plugin_Continue;
 	}
 
@@ -104,12 +100,13 @@ Action Event_PlayerDeath(Event event, const char[] name, bool bDontBroadcast)
 	return Plugin_Continue;
 }
 
+/**
+ * Timer for takeover.
+ */
 Action Timer_TakeOver(Handle hTimer, int iClient)
 {
-	if (!IsClientInGame(iClient)
-	|| IsFakeClient(iClient)
-	|| !IsClientSurvivor(iClient)) {
-		return Plugin_Continue;
+	if (!IsClientInGame(iClient) || IsFakeClient(iClient) || !IsClientSurvivor(iClient)) {
+		return Plugin_Stop;
 	}
 
 	TakeOver(iClient);
@@ -119,11 +116,7 @@ Action Timer_TakeOver(Handle hTimer, int iClient)
 
 Action Cmd_TakeOver(int iClient, int iArgs)
 {
-	if (!IsValidClient(iClient)) {
-		return Plugin_Continue;
-	}
-
-	if (!IsClientSurvivor(iClient) || IsPlayerAlive(iClient)) {
+	if (!iClient || !IsClientSurvivor(iClient) || IsPlayerAlive(iClient)) {
 		return Plugin_Continue;
 	}
 
@@ -142,7 +135,7 @@ Action Cmd_TakeOver(int iClient, int iArgs)
 bool TakeOver(int iClient)
 {
 	int iBot = FindAliveSurvivorBot();
-	
+
 	if (iBot != -1)
 	{
 		ChangeClientTeam(iClient, TEAM_SPECTATOR);
@@ -152,8 +145,8 @@ bool TakeOver(int iClient)
 			SetHumanSpec(iBot, iClient);
 			TakeOverBot(iClient);
 		}
-
-		else {
+		else
+		{
 			ExecuteCheatCommand(iClient, "sb_takecontrol");
 		}
 
@@ -161,10 +154,6 @@ bool TakeOver(int iClient)
 	}
 
 	return false;
-}
-
-bool IsValidClient(int iClient) {
-	return (iClient > 0 && iClient <= MaxClients);
 }
 
 /**
