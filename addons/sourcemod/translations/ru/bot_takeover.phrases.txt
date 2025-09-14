@@ -1,0 +1,34 @@
+"Phrases"
+{
+    "TAG"
+    {
+        "ru"            "<{green}TakeOver{default}> "
+    }
+
+    "MENU_TITLE"
+    {
+        "ru"            "Выберите бота-выжившего:\n "
+    }
+
+    "MENU_ITEM"
+    {
+        "#format"       "{1:s},{2:N}"
+        "ru"            "{1} {2}"
+    }
+
+    "SURVIVOR_BOT_NOT_FOUND"
+    {
+        "ru"            "Нет доступных ботов-выживших"
+    }
+
+    "SURVIVOR_BOT_NOT_AVAILABLE"
+    {
+        "ru"            "Этот бот-выживший больше недоступен"
+    }
+
+    "NOTIFY"
+    {
+        "#format"       "{1:N},{2:N}"
+        "ru"            "{blue}{1}{default} теперь играет за {olive}{2}"
+    }
+}

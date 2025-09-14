@@ -1,0 +1,34 @@
+"Phrases"
+{
+    "TAG"
+    {
+        "en" "<{green}TakeOver{default}> "
+    }
+
+    "MENU_TITLE"
+    {
+        "en" "Select a survivor bot:\n "
+    }
+
+    "MENU_ITEM"
+    {
+        "#format" "{1:s},{2:N}"
+        "en" "{1} {2}"
+    }
+
+    "SURVIVOR_BOT_NOT_FOUND"
+    {
+        "en" "No survivor bot available"
+    }
+
+    "SURVIVOR_BOT_NOT_AVAILABLE"
+    {
+        "en" "This survivor bot is no longer available"
+    }
+
+    "NOTIFY"
+    {
+        "#format" "{1:N},{2:N}"
+        "en" "{blue}{1}{default} is now playing as {olive}{2}"
+    }
+}
